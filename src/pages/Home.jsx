@@ -8,18 +8,18 @@ const Home = () => {
   const [isLoading, setLoading] = useState(true);
 
   const cat = useLocation().search;
-
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/posts${cat}`);
+      console.log(res.data);
+      setPosts(res.data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(`/api/posts${cat}`);
-        setPosts(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchData();
   }, [cat]);
 
