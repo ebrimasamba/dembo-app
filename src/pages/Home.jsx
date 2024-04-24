@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import axiosInstance from "../axios";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +11,7 @@ const Home = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`/api/posts${cat}`);
+      const res = await axiosInstance.get(`/api/posts${cat}`);
       console.log(res.data);
       setPosts(res.data);
       setLoading(false);
